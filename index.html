@@ -4,21 +4,24 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta charset="UTF-8">
 
-		<title>My Fiori 0</title>
+		<title>Department Tracker</title>
 
 		<script
 			id="sap-ui-bootstrap"
 			src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
 			data-sap-ui-theme="sap_bluecrystal"
-			data-sap-ui-libs="sap.m"
+			data-sap-ui-libs="sap.m, sap.ui.layout"
+			data-sap-ui-xx-bindingSyntax="complex"
 			data-sap-ui-resourceroots='{
 				"sap.ui.demo.myFiori": "./"
 			}' >
 		</script>
-
+		<script src="util/Formatter.js"></script>
 		<script>
-			new sap.ui.core.ComponentContainer({
-				name : "sap.ui.demo.myFiori"
+			new sap.m.Shell({
+				app : new sap.ui.core.ComponentContainer({
+					name : "sap.ui.demo.myFiori"
+				})
 			}).placeAt("content");
 		</script>
 

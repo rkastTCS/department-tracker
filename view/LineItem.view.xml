@@ -1,0 +1,31 @@
+<core:View
+	controllerName="sap.ui.demo.myFiori.view.LineItem"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core" 
+	xmlns:ma="sap.makit">
+	<Page
+		id="page"
+		title=" {i18n>LineItemTitle}"
+		showNavButton="true"
+		navButtonPress="handleNavBack" >
+		<content>
+			<PullToRefresh press="handleRefresh"
+				id="pullToRefresh"
+				refresh="handleRefresh"/>
+		</content>
+		<footer>
+			<Bar>
+			</Bar>
+		</footer>
+		<content>
+			<ObjectHeader
+				title="{Type}"
+				number="{GrossAmount}"
+				numberUnit="{CurrencyCode}" >
+				<attributes>
+					<ObjectAttribute text="{Date}" />
+				</attributes>
+			</ObjectHeader>
+		</content>
+	</Page>
+</core:View>

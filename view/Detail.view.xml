@@ -1,16 +1,159 @@
 <core:View
 	controllerName="sap.ui.demo.myFiori.view.Detail"
 	xmlns="sap.m"
-	xmlns:core="sap.ui.core" >
+	xmlns:core="sap.ui.core">
 	<Page
-		title="~DetailPage~"
+		title="{i18n>DetailTitle}"
 		showNavButton="true"
-		navButtonPress="handleNavButtonPress" >
-		<VBox>
-			<Text text="{SoId}" />
-			<Text text="{GrossAmount}" />
-			<Text text="{CreatedAt}" />
-			<Text text="{CreatedByBp}" />
-		</VBox>
+		navButtonPress="handleNavButtonPress">
+
+		<content>
+			<PullToRefresh press="handleRefresh"
+				id="pullToRefresh"
+				refresh="handleRefresh"/>
+		</content>
+			
+		<ObjectHeader
+			title="{Name}"
+			number="{DId}">
+			
+			<attributes>
+				<ObjectAttribute title="{i18n>ManagerLabel}"
+					text="{Manager}" />
+				<ObjectAttribute title="{i18n>SalesTotalLabel}"
+					text="{path: 'Sales',
+					formatter: 'sap.ui.demo.myFiori.util.Formatter.totalSales'
+				} {i18n>CurrencyCode}" />
+				<ObjectAttribute title="{i18n>ExpensesTotalLabel}"
+					text="{path: 'Expenses',
+					formatter: 'sap.ui.demo.myFiori.util.Formatter.totalExpenses'
+				} {i18n>CurrencyCode}" />
+				<ObjectAttribute title="Result" id="budget" text="{
+					parts : [
+                            	{path : 'Sales'},
+                            	{path : 'Expenses'}
+                            ],
+					formatter: 'sap.ui.demo.myFiori.util.Formatter.inBudget'
+				}"/>
+			</attributes>
+			
+		</ObjectHeader>
+		
+		
+		<Toolbar>
+		<ObjectAttribute text="Still Employed:" class="sapUiResponsiveMargin"/>
+			<Switch class="sapUiResponsiveMargin" state="{Employed}" customTextOn="Yes" customTextOff="No">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+			</Switch>
+		</Toolbar>
+		
+		<Table
+			headerText="{i18n>SalesTableTitle}"
+			items="{Sales}" 
+			id="salesTable">
+			<columns>
+				<Column
+					hAlign="Right" >
+					<header><Label text="{i18n>SalesProductColumnHeader}" /></header>
+				</Column>
+				<Column hAlign="Right" >
+					<header><Label text="{i18n>SalesIDColumnHeader}" /></header>
+				</Column>
+				<Column
+					hAlign="Right" >
+					<header><Label text="{i18n>SalesPriceColumnHeader}" /></header>
+				</Column>
+				<Column
+					minScreenWidth="Tablet"
+					demandPopin="true"
+					hAlign="Center" >
+					<header><Label text="{i18n>SalesDateColumnHeader}" /></header>
+				</Column>
+			</columns>
+			<ColumnListItem
+				type="Navigation"
+				press="handleLineItemPress">
+				<cells>
+					<Text
+						text="{Type}"/>
+					<ObjectIdentifier
+						title="{Id}" />
+					<ObjectNumber
+						number="{GrossAmount}" 
+						numberUnit="{i18n>CurrencyCode}" />
+					<Text
+						text="{Date}"/>
+				</cells>
+			</ColumnListItem>
+		</Table>
+
+		<Toolbar>
+			<SearchField placeholder="{i18n>SearchFieldText}" liveChange="onSearch1"	width="100%" />
+			<Button text=""
+				id="addSaleBtn"
+				icon="resources/addButton.png"
+				press="handleAddSale">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+			</Button>
+		</Toolbar>
+
+
+		
+		<Table
+			id="expensesTable"
+			headerText="{i18n>ExpensesTableTitle}"
+			items="{Expenses}">
+			<columns>
+			<Column
+					hAlign="Right" >
+					<header><Label text="{i18n>ExpensesProductColumnHeader}" /></header>
+				</Column>
+				<Column hAlign="Right" >
+					<header><Label text="{i18n>ExpensesIDColumnHeader}" /></header>
+				</Column>
+				<Column
+					hAlign="Right" >
+					<header><Label text="{i18n>ExpensesPriceColumnHeader}" /></header>
+				</Column>
+				<Column
+					minScreenWidth="Tablet"
+					demandPopin="true"
+					hAlign="Center" >
+					<header><Label text="{i18n>ExpensesDateColumnHeader}" /></header>
+				</Column>
+			</columns>
+			<ColumnListItem
+				type="Navigation"
+				press="handleLineItemPress">
+				<cells>
+					<Text
+						text="{Type}"/>
+					<ObjectIdentifier
+						title="{Id}" />
+					<ObjectNumber
+						number="{GrossAmount}"
+						numberUnit="{i18n>CurrencyCode}" />
+					<Text
+						text="{Date}"/>
+				</cells>
+			</ColumnListItem>
+		</Table>
+		
+		<Toolbar>
+			<SearchField placeholder="{i18n>SearchFieldText}" liveChange="onSearch2"	width="100%" />
+			<Button text=""
+				id="addExpenseBtn"
+				icon="resources/addButton.png"
+				press="handleAddExpense">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+			</Button>
+		</Toolbar>
+
 	</Page>
 </core:View>

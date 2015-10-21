@@ -1,15 +1,75 @@
+
 <core:View
+	height="100%"
 	controllerName="sap.ui.demo.myFiori.view.Master"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
 	xmlns="sap.m"
-	xmlns:core="sap.ui.core" >
+	xmlns:ma="sap.makit"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	class="viewPadding"
+	xmlns:vbm="sap.ui.vbm"
+   displayBlock="true">
+	
+	
+
 	<Page
-		title="~MasterPage~" >
-		<List
-			items="{/SalesOrderCollection}" >
-			<StandardListItem
-				type="Active"
-				press="handleListItemPress"
-				title="{SoId}" />
+		title="{i18n>MasterTitle}" >
+			<PullToRefresh press="handleRefresh" id="pullToRefresh" refresh="handleRefresh"/>
+			<Toolbar>
+				<SearchField placeholder="{i18n>SearchFieldText}" liveChange="onSearch"	width="100%" />
+				<Select change="handleLanguageChange">
+					<core:Item key="_en_US" text="English" />
+					<core:Item key="_de_DE" text="German" />
+					<core:Item key="_es" text="Spanish" />
+				</Select>
+			</Toolbar>
+	<Carousel class="sapUiContentPadding">
+		<pages>	
+		<List id="idList" items="{/DepartmentCollection}" >
+			<infoToolbar>
+				<Toolbar visible="false" id="idInfoToolbar" >
+					<Label id="idFilterLabel" />
+				</Toolbar>
+			</infoToolbar>
+			<items>
+			<ObjectListItem	type="Active" 
+							press="handleListItemPress" 
+							title="{Name}"
+							Description="id"
+							number="{DId}">
+				<attributes>
+					<ObjectAttribute text="{Manager}" />
+				</attributes>
+			</ObjectListItem>
+			</items>
 		</List>
-	</Page>
+		
+		<FlexBox
+					height="100px"
+					alignItems="Lower"
+					justifyContent="Center">
+		<l:VerticalLayout>
+		<l:content>
+			<u:Calendar
+					id="calendar"
+					months="2"
+					select="handleCalendarSelect"/>
+			<l:HorizontalLayout>
+				<Button
+						press="handleSelectToday"
+						text="Select Today" />
+				<Text
+						id="selectedDate"
+						text="No Date Selected"/>
+			</l:HorizontalLayout>
+		</l:content>
+	</l:VerticalLayout>
+	</FlexBox>
+	<!--vbm:GeoMap id="vbi" width="100%" height="100%"-->
+	
+	</pages>
+</Carousel>
+</Page>
 </core:View>
